@@ -240,3 +240,9 @@ BEGIN
     END IF;
     RETURN `result`;
 END;
+CREATE USER `gamemaster`@`localhost` IDENTIFIED BY 'caro';
+GRANT EXECUTE ON `caro`.* TO `gamemaster`@`localhost`;
+GRANT SELECT ON `caro`.`nguoichoi` TO `gamemaster`@`localhost`;
+GRANT SELECT ON `caro`.`admin` TO `gamemaster`@`localhost`;
+GRANT SELECT ON `caro`.`banchoi` TO `gamemaster`@`localhost`;
+FLUSH PRIVILEGES;
