@@ -1,4 +1,3 @@
-SET GLOBAL log_bin_trust_function_creators = 1;
 CREATE DATABASE `caro`;
 USE `caro`;
 CREATE TABLE `caro`.`user`(
@@ -216,6 +215,7 @@ CREATE FUNCTION `caro`.`kiemtrataikhoan`(
     `password` VARCHAR(30)
 )
 RETURNS BOOLEAN
+DETERMINISTIC
 BEGIN
     DECLARE `result` BOOLEAN;
     SET `result` = FALSE;
@@ -228,6 +228,7 @@ CREATE FUNCTION `caro`.`kiemtratontaiusername`(
     `username` VARCHAR(20)
 )
 RETURNS BOOLEAN
+DETERMINISTIC
 BEGIN
     DECLARE `result` BOOLEAN;
     SET `result` = FALSE;
@@ -240,6 +241,7 @@ CREATE FUNCTION `caro`.`xemdiem`(
     `username` VARCHAR(20)
 )
 RETURNS INT
+DETERMINISTIC
 BEGIN
     DECLARE `result` INT;
     SET `result` = 0;
