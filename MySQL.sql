@@ -36,9 +36,7 @@ CREATE PROCEDURE `caro`.`themnguoichoi`(
     IN `email` VARCHAR(50),
     IN `admin` BOOLEAN
 )
-BEGIN
-    INSERT INTO `user` VALUES (id, name, username, password, email, FALSE);
-END;
+INSERT INTO `user` VALUES (id, name, username, password, email, FALSE);
 CREATE PROCEDURE `caro`.`suannguoichoi`(
     IN `id` VARCHAR(10),
     IN `name` VARCHAR(20),
@@ -48,21 +46,15 @@ CREATE PROCEDURE `caro`.`suannguoichoi`(
     IN `admin` BOOLEAN,
     IN `score` INT
 )
-BEGIN
-    UPDATE `user` SET `NAME` = name, `USERNAME` = username, `PASSWORD` = password, `EMAIL` = email, `ADMIN` = admin, `SCORE` = score WHERE `ID` = id;
-END;
+UPDATE `user` SET `NAME` = name, `USERNAME` = username, `PASSWORD` = password, `EMAIL` = email, `ADMIN` = admin, `SCORE` = score WHERE `ID` = id;
 CREATE PROCEDURE `caro`.`xoanguoichoi`(
     IN `id` VARCHAR(10)
 )
-BEGIN
-    DELETE FROM `user` WHERE `ID` = id;
-END;
+DELETE FROM `user` WHERE `ID` = id;
 CREATE PROCEDURE `caro`.`xoanguoichoitheousername`(
     IN `username` VARCHAR(20)
 )
-BEGIN
-    DELETE FROM `user` WHERE `USERNAME` = username;
-END;
+DELETE FROM `user` WHERE `USERNAME` = username;
 CREATE PROCEDURE `caro`.`suannguoichoitheousername`(
     IN `username` VARCHAR(20),
     IN `name` VARCHAR(20),
@@ -71,16 +63,12 @@ CREATE PROCEDURE `caro`.`suannguoichoitheousername`(
     IN `admin` BOOLEAN,
     IN `score` INT
 )
-BEGIN
-    UPDATE `user` SET `NAME` = name, `PASSWORD` = password, `EMAIL` = email, `ADMIN` = admin, `SCORE` = score WHERE `USERNAME` = username;
-END;
+UPDATE `user` SET `NAME` = name, `PASSWORD` = password, `EMAIL` = email, `ADMIN` = admin, `SCORE` = score WHERE `USERNAME` = username;
 CREATE PROCEDURE `caro`.`doimatkhau`(
     IN `username` VARCHAR(20),
     IN `password` VARCHAR(30)
 )
-BEGIN
-    UPDATE `user` SET `PASSWORD` = password WHERE `USERNAME` = username;
-END;
+UPDATE `user` SET `PASSWORD` = password WHERE `USERNAME` = username;
 CREATE PROCEDURE `caro`.`themadmin`(
     IN `id` VARCHAR(10),
     IN `name` VARCHAR(20),
@@ -88,9 +76,7 @@ CREATE PROCEDURE `caro`.`themadmin`(
     IN `password` VARCHAR(30),
     IN `email` VARCHAR(50)
 )
-BEGIN
-    INSERT INTO `user` VALUES (id, name, username, password, email, TRUE);
-END;
+INSERT INTO `user` VALUES (id, name, username, password, email, TRUE);
 CREATE PROCEDURE `caro`.`suanadmin`(
     IN `id` VARCHAR(10),
     IN `name` VARCHAR(20),
@@ -98,30 +84,22 @@ CREATE PROCEDURE `caro`.`suanadmin`(
     IN `password` VARCHAR(30),
     IN `email` VARCHAR(50)
 )
-BEGIN
-    UPDATE `user` SET `NAME` = name, `USERNAME` = username, `PASSWORD` = password, `EMAIL` = email WHERE `ID` = id;
-END;
+UPDATE `user` SET `NAME` = name, `USERNAME` = username, `PASSWORD` = password, `EMAIL` = email WHERE `ID` = id;
 CREATE PROCEDURE `caro`.`suaadmintheousername`(
     IN `username` VARCHAR(20),
     IN `name` VARCHAR(20),
     IN `password` VARCHAR(30),
     IN `email` VARCHAR(50)
 )
-BEGIN
-    UPDATE `user` SET `NAME` = name, `PASSWORD` = password, `EMAIL` = email WHERE `USERNAME` = username;
-END;
+UPDATE `user` SET `NAME` = name, `PASSWORD` = password, `EMAIL` = email WHERE `USERNAME` = username;
 CREATE PROCEDURE `caro`.`xoaadmin`(
     IN `id` VARCHAR(10)
 )
-BEGIN
-    DELETE FROM `user` WHERE `ID` = id;
-END;
+DELETE FROM `user` WHERE `ID` = id;
 CREATE PROCEDURE `caro`.`xoaadmintheousername`(
     IN `username` VARCHAR(20)
 )
-BEGIN
-    DELETE FROM `user` WHERE `USERNAME` = username;
-END;
+DELETE FROM `user` WHERE `USERNAME` = username;
 CREATE PROCEDURE `caro`.`thembanchoi`(
     IN `id` VARCHAR(10),
     IN `player_id` VARCHAR(10),
@@ -135,9 +113,7 @@ CREATE PROCEDURE `caro`.`thembanchoi`(
     IN `data` JSON,
     IN `nextmove` BOOLEAN
 )
-BEGIN
-    INSERT INTO `game` VALUES (id, player_id, opponent_name, score, game_type, difficulty, play_time, start_time, status, data, nextmove);
-END;
+INSERT INTO `game` VALUES (id, player_id, opponent_name, score, game_type, difficulty, play_time, start_time, status, data, nextmove);
 CREATE PROCEDURE `caro`.`suabanchoi`(
     IN `id` VARCHAR(10),
     IN `player_id` VARCHAR(10),
@@ -151,9 +127,7 @@ CREATE PROCEDURE `caro`.`suabanchoi`(
     IN `data` JSON,
     IN `nextmove` BOOLEAN
 )
-BEGIN
-    UPDATE `game` SET `PLAYER_ID` = player_id, `OPPONENT_NAME` = opponent_name, `SCORE` = score, `GAME_TYPE` = game_type, `DIFFICULTY` = difficulty, `PLAY_TIME` = play_time, `START_TIME` = start_time, `STATUS` = status, `DATA` = data, `NEXTMOVE` = nextmove WHERE `ID` = id;
-END;
+UPDATE `game` SET `PLAYER_ID` = player_id, `OPPONENT_NAME` = opponent_name, `SCORE` = score, `GAME_TYPE` = game_type, `DIFFICULTY` = difficulty, `PLAY_TIME` = play_time, `START_TIME` = start_time, `STATUS` = status, `DATA` = data, `NEXTMOVE` = nextmove WHERE `ID` = id;
 CREATE PROCEDURE `caro`.`suabanchoitheoplayerid`(
     IN `player_id` VARCHAR(10),
     IN `opponent_name` VARCHAR(20),
@@ -166,9 +140,7 @@ CREATE PROCEDURE `caro`.`suabanchoitheoplayerid`(
     IN `data` JSON,
     IN `nextmove` BOOLEAN
 )
-BEGIN
-    UPDATE `game` SET `OPPONENT_NAME` = opponent_name, `SCORE` = score, `GAME_TYPE` = game_type, `DIFFICULTY` = difficulty, `PLAY_TIME` = play_time, `START_TIME` = start_time, `STATUS` = status, `DATA` = data, `NEXTMOVE` = nextmove WHERE `PLAYER_ID` = player_id;
-END;
+UPDATE `game` SET `OPPONENT_NAME` = opponent_name, `SCORE` = score, `GAME_TYPE` = game_type, `DIFFICULTY` = difficulty, `PLAY_TIME` = play_time, `START_TIME` = start_time, `STATUS` = status, `DATA` = data, `NEXTMOVE` = nextmove WHERE `PLAYER_ID` = player_id;
 CREATE PROCEDURE `caro`.`suabanchoitheousername`(
     IN `username` VARCHAR(20),
     IN `opponent_name` VARCHAR(20),
@@ -181,34 +153,24 @@ CREATE PROCEDURE `caro`.`suabanchoitheousername`(
     IN `data` JSON,
     IN `nextmove` BOOLEAN
 )
-BEGIN
-    UPDATE `game` SET `OPPONENT_NAME` = opponent_name, `SCORE` = score, `GAME_TYPE` = game_type, `DIFFICULTY` = difficulty, `PLAY_TIME` = play_time, `START_TIME` = start_time, `STATUS` = status, `DATA` = data, `NEXTMOVE` = nextmove WHERE `PLAYER_ID` = (SELECT `ID` FROM `user` WHERE `USERNAME` = username);
-END;
+UPDATE `game` SET `OPPONENT_NAME` = opponent_name, `SCORE` = score, `GAME_TYPE` = game_type, `DIFFICULTY` = difficulty, `PLAY_TIME` = play_time, `START_TIME` = start_time, `STATUS` = status, `DATA` = data, `NEXTMOVE` = nextmove WHERE `PLAYER_ID` = (SELECT `ID` FROM `user` WHERE `USERNAME` = username);
 CREATE PROCEDURE `caro`.`xoabanchoi`(
     IN `id` VARCHAR(10)
 )
-BEGIN
-    DELETE FROM `game` WHERE `ID` = id;
-END;
+DELETE FROM `game` WHERE `ID` = id;
 CREATE PROCEDURE `caro`.`xoabanchoitheoplayerid`(
     IN `player_id` VARCHAR(10)
 )
-BEGIN
-    DELETE FROM `game` WHERE `PLAYER_ID` = player_id;
-END;
+DELETE FROM `game` WHERE `PLAYER_ID` = player_id;
 CREATE PROCEDURE `caro`.`xoabanchoitheousername`(
     IN `username` VARCHAR(20)
 )
-BEGIN
-    DELETE FROM `game` WHERE `PLAYER_ID` = (SELECT `ID` FROM `user` WHERE `USERNAME` = username);
-END;
+DELETE FROM `game` WHERE `PLAYER_ID` = (SELECT `ID` FROM `user` WHERE `USERNAME` = username);
 CREATE PROCEDURE `caro`.`resetmatkhau`(
     IN `username` VARCHAR(20),
     IN `password` VARCHAR(30)
 )
-BEGIN
-    UPDATE `user` SET `PASSWORD` = password WHERE `USERNAME` = username;
-END;
+UPDATE `user` SET `PASSWORD` = password WHERE `USERNAME` = username;
 CREATE FUNCTION `caro`.`kiemtrataikhoan`(
     `username` VARCHAR(20),
     `password` VARCHAR(30)
