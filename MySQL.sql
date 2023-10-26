@@ -75,6 +75,13 @@ CREATE PROCEDURE `caro`.`suannguoichoitheousername`(
 BEGIN
     UPDATE `user` SET `NAME` = name, `PASSWORD` = password, `EMAIL` = email, `ADMIN` = admin, `SCORE` = score WHERE `USERNAME` = username;
 END;
+CREATE PROCEDURE `caro`.`doimatkhau`(
+    IN `username` VARCHAR(20),
+    IN `password` VARCHAR(30)
+)
+BEGIN
+    UPDATE `user` SET `PASSWORD` = password WHERE `USERNAME` = username;
+END;
 CREATE PROCEDURE `caro`.`themadmin`(
     IN `id` VARCHAR(10),
     IN `name` VARCHAR(20),
