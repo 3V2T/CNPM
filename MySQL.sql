@@ -171,6 +171,7 @@ CREATE PROCEDURE `caro`.`resetmatkhau`(
     IN `password` VARCHAR(30)
 )
 UPDATE `user` SET `PASSWORD` = password WHERE `USERNAME` = username;
+DELIMITER $$
 CREATE FUNCTION `caro`.`kiemtrataikhoan`(
     `username` VARCHAR(20),
     `password` VARCHAR(30)
@@ -184,7 +185,9 @@ BEGIN
         SET `result` = TRUE;
     END IF;
     RETURN `result`;
-END;
+END $$
+DELIMITER ;
+DELIMITER $$
 CREATE FUNCTION `caro`.`kiemtratontaiusername`(
     `username` VARCHAR(20)
 )
@@ -197,7 +200,9 @@ BEGIN
         SET `result` = TRUE;
     END IF;
     RETURN `result`;
-END;
+END $$
+DELIMITER ;
+DELIMITER $$
 CREATE FUNCTION `caro`.`xemdiem`(
     `username` VARCHAR(20)
 )
@@ -210,7 +215,8 @@ BEGIN
         SET `result` = (SELECT `SCORE` FROM `user` WHERE `USERNAME` = username);
     END IF;
     RETURN `result`;
-END;
+END $$
+DELIMITER ;
 CREATE USER `gamemaster`@`localhost` IDENTIFIED BY 'caro';
 GRANT EXECUTE ON `caro`.* TO `gamemaster`@`localhost`;
 GRANT SELECT ON `caro`.`nguoichoi` TO `gamemaster`@`localhost`;
