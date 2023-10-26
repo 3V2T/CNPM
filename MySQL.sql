@@ -34,8 +34,7 @@ CREATE PROCEDURE `caro`.`themnguoichoi`(
     IN `username` VARCHAR(20),
     IN `password` VARCHAR(30),
     IN `email` VARCHAR(50),
-    IN `admin` BOOLEAN,
-    IN `score` INT
+    IN `admin` BOOLEAN
 )
 BEGIN
     INSERT INTO `user`(`ID`, `NAME`, `USERNAME`, `PASSWORD`, `EMAIL`, `ADMIN`) VALUES(id, name, username, password, email, FALSE);
