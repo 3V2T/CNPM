@@ -37,7 +37,7 @@ CREATE PROCEDURE `caro`.`themnguoichoi`(
     IN `admin` BOOLEAN
 )
 BEGIN
-    INSERT INTO `user`(`ID`, `NAME`, `USERNAME`, `PASSWORD`, `EMAIL`, `ADMIN`) VALUES(id, name, username, password, email, FALSE);
+    INSERT INTO `user` VALUES (id, name, username, password, email, FALSE);
 END;
 CREATE PROCEDURE `caro`.`suannguoichoi`(
     IN `id` VARCHAR(10),
@@ -89,7 +89,7 @@ CREATE PROCEDURE `caro`.`themadmin`(
     IN `email` VARCHAR(50)
 )
 BEGIN
-    INSERT INTO `user`(`ID`, `NAME`, `USERNAME`, `PASSWORD`, `EMAIL`, `ADMIN`) VALUES(id, name, username, password, email, TRUE);
+    INSERT INTO `user` VALUES (id, name, username, password, email, TRUE);
 END;
 CREATE PROCEDURE `caro`.`suanadmin`(
     IN `id` VARCHAR(10),
@@ -136,7 +136,7 @@ CREATE PROCEDURE `caro`.`thembanchoi`(
     IN `nextmove` BOOLEAN
 )
 BEGIN
-    INSERT INTO `game`(`ID`, `PLAYER_ID`, `OPPONENT_NAME`, `SCORE`, `GAME_TYPE`, `DIFFICULTY`, `PLAY_TIME`, `START_TIME`, `STATUS`, `DATA`, `NEXTMOVE`) VALUES(id, player_id, opponent_name, score, game_type, difficulty, play_time, start_time, status, data, nextmove);
+    INSERT INTO `game` VALUES (id, player_id, opponent_name, score, game_type, difficulty, play_time, start_time, status, data, nextmove);
 END;
 CREATE PROCEDURE `caro`.`suabanchoi`(
     IN `id` VARCHAR(10),
