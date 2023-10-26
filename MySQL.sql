@@ -1,3 +1,4 @@
+SET GLOBAL log_bin_trust_function_creators = 1;
 CREATE DATABASE `caro`;
 USE `caro`;
 CREATE TABLE `caro`.`user`(
