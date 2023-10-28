@@ -28,6 +28,11 @@ CREATE TABLE `caro`.`game`(
 CREATE VIEW `caro`.`nguoichoi` AS SELECT `ID`, `NAME`, `USERNAME`, `PASSWORD`, `EMAIL`, `SCORE` FROM `user` WHERE `ADMIN` = FALSE;
 CREATE VIEW `caro`.`admin` AS SELECT `ID`, `NAME`, `USERNAME`, `PASSWORD`, `EMAIL` FROM `user` WHERE `ADMIN` = TRUE;
 CREATE VIEW `caro`.`banchoi` AS SELECT * FROM `game`;
+CREATE PROCEDURE `caro`.`dangky`(
+    IN `username` VARCHAR(20),
+    IN `password` VARCHAR(30)
+)
+INSERT INTO `user`(`USERNAME`, `PASSWORD`) VALUES (username, password);
 CREATE PROCEDURE `caro`.`themnguoichoi`(
     IN `id` VARCHAR(10),
     IN `name` VARCHAR(20),
