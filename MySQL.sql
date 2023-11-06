@@ -121,31 +121,22 @@ CREATE PROCEDURE `caro`.`thembanchoi`(
 INSERT INTO `game` VALUES (id, player_id, opponent_name, score, game_type, difficulty, play_time, start_time, status, data, nextmove);
 CREATE PROCEDURE `caro`.`suabanchoi`(
     IN `id` VARCHAR(10),
-    IN `player_id` VARCHAR(10),
-    IN `opponent_name` VARCHAR(20),
     IN `score` INT,
-    IN `game_type` VARCHAR(10),
-    IN `difficulty` INT,
     IN `play_time` INT,
-    IN `start_time` DATETIME,
     IN `status` VARCHAR(10),
     IN `data` JSON,
     IN `nextmove` BOOLEAN
 )
-UPDATE `game` SET `PLAYER_ID` = player_id, `OPPONENT_NAME` = opponent_name, `SCORE` = score, `GAME_TYPE` = game_type, `DIFFICULTY` = difficulty, `PLAY_TIME` = play_time, `START_TIME` = start_time, `STATUS` = status, `DATA` = data, `NEXTMOVE` = nextmove WHERE `ID` = id;
+UPDATE `game` SET `SCORE` = score, `PLAY_TIME` = play_time, `STATUS` = status, `DATA` = data, `NEXTMOVE` = nextmove WHERE `ID` = id;
 CREATE PROCEDURE `caro`.`suabanchoitheoplayerid`(
     IN `player_id` VARCHAR(10),
-    IN `opponent_name` VARCHAR(20),
     IN `score` INT,
-    IN `game_type` VARCHAR(10),
-    IN `difficulty` INT,
     IN `play_time` INT,
-    IN `start_time` DATETIME,
     IN `status` VARCHAR(10),
     IN `data` JSON,
     IN `nextmove` BOOLEAN
 )
-UPDATE `game` SET `OPPONENT_NAME` = opponent_name, `SCORE` = score, `GAME_TYPE` = game_type, `DIFFICULTY` = difficulty, `PLAY_TIME` = play_time, `START_TIME` = start_time, `STATUS` = status, `DATA` = data, `NEXTMOVE` = nextmove WHERE `PLAYER_ID` = player_id;
+UPDATE `game` SET `SCORE` = score, `PLAY_TIME` = play_time, `STATUS` = status, `DATA` = data, `NEXTMOVE` = nextmove WHERE `PLAYER_ID` = player_id;
 CREATE PROCEDURE `caro`.`suabanchoitheousername`(
     IN `username` VARCHAR(20),
     IN `opponent_name` VARCHAR(20),
