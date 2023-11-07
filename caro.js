@@ -83,7 +83,9 @@ function isWinningMove(x, y, player) {
 
 // Hàm để AI thực hiện nước đi
 function makeAIMove() {
-    const bestMove = getBestMove(2, 0); // Gọi hàm Minimax để lấy nước đi tốt nhất cho AI (AI được đánh dấu là 2).
+    const difficulty = 3; // Điều chỉnh độ khó ở đây, ví dụ: 1 (dễ), 2 (trung bình), 3 (khó)
+
+    const bestMove = getBestMove(2, difficulty); // Gọi hàm Minimax để lấy nước đi tốt nhất cho AI (AI được đánh dấu là 2).
     const x = bestMove.x;
     const y = bestMove.y;
 
