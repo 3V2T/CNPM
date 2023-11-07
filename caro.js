@@ -1,15 +1,20 @@
-// Tạo một bàn cờ 15x15
+// Khởi tạo bàn cờ 15x15
+const BOARD_SIZE = 15;
+const EMPTY_CELL = 0;
+const PLAYER_ONE = 1;
+const PLAYER_TWO = 2;
+
 const board = [];
-for (let i = 0; i < 15; i++) {
-    board.push(new Array(15).fill(0));
+for (let i = 0; i < BOARD_SIZE; i++) {
+    board.push(new Array(BOARD_SIZE).fill(EMPTY_CELL));
 }
 
-// Hàm để kiểm tra xem một nước đi có hợp lệ không
+// Kiểm tra nước đi hợp lệ
 function isValidMove(x, y) {
-    return x >= 0 && x < 15 && y >= 0 && y < 15 && board[x][y] === 0;
+    return x >= 0 && x < BOARD_SIZE && y >= 0 && y < BOARD_SIZE && board[x][y] === EMPTY_CELL;
 }
 
-// Hàm để thực hiện nước đi của người chơi
+// Thực hiện nước đi của người chơi
 function makeMove(x, y, player) {
     if (isValidMove(x, y)) {
         board[x][y] = player;
@@ -23,11 +28,11 @@ function makeMove(x, y, player) {
     }
 }
 
-// Hàm để kiểm tra xem người chơi đã thắng hay chưa
+// Kiểm tra xem người chơi đã thắng hay chưa
 function isWinningMove(x, y, player) {
     // Kiểm tra hàng ngang
     let consecutiveCount = 0;
-    for (let i = Math.max(x - 4, 0); i <= Math.min(x + 4, 14); i++) {
+    for (let i = Math.max(x - 4, 0); i <= Math.min(x + 4, BOARD_SIZE - 1); i++) {
         if (board[i][y] === player) {
             consecutiveCount++;
             if (consecutiveCount >= 5) {
@@ -40,7 +45,7 @@ function isWinningMove(x, y, player) {
 
     // Kiểm tra hàng dọc
     consecutiveCount = 0;
-    for (let j = Math.max(y - 4, 0); j <= Math.min(y + 4, 14); j++) {
+    for (let j = Math.max(y - 4, 0); j <= Math.min(y + 4, BOARD_SIZE - 1); j++) {
         if (board[x][j] === player) {
             consecutiveCount++;
             if (consecutiveCount >= 5) {
@@ -53,7 +58,7 @@ function isWinningMove(x, y, player) {
 
     // Kiểm tra đường chéo chính
     consecutiveCount = 0;
-    for (let i = Math.max(x - 4, 0), j = Math.max(y - 4, 0); i <= Math.min(x + 4, 14) && j <= Math.min(y + 4, 14); i++, j++) {
+    for (let i = Math.max(x - 4, 0), j = Math.max(y - 4, 0); i <= Math.min(x + 4, BOARD_SIZE - 1) && j <= Math.min(y + 4, BOARD_SIZE - 1); i++, j++) {
         if (board[i][j] === player) {
             consecutiveCount++;
             if (consecutiveCount >= 5) {
@@ -66,7 +71,7 @@ function isWinningMove(x, y, player) {
 
     // Kiểm tra đường chéo phụ
     consecutiveCount = 0;
-    for (let i = Math.max(x - 4, 0), j = Math.min(y + 4, 14); i <= Math.min(x + 4, 14) && j >= Math.max(y - 4, 0); i++, j--) {
+    for (let i = Math.max(x - 4, 0), j = Math.min(y + 4, BOARD_SIZE - 1); i <= Math.min(x + 4, BOARD_SIZE - 1) && j >= Math.max(y - 4, 0); i++, j--) {
         if (board[i][j] === player) {
             consecutiveCount++;
             if (consecutiveCount >= 5) {
@@ -80,34 +85,35 @@ function isWinningMove(x, y, player) {
     return false;
 }
 
-
-// Hàm để AI thực hiện nước đi
+// Thực hiện nước đi của AI
 function makeAIMove() {
     const difficulty = 3; // Điều chỉnh độ khó ở đây, ví dụ: 1 (dễ), 2 (trung bình), 3 (khó)
 
-    const bestMove = getBestMove(2, difficulty); // Gọi hàm Minimax để lấy nước đi tốt nhất cho AI (AI được đánh dấu là 2).
+    const bestMove = getBestMove(PLAYER_TWO, difficulty); // Gọi hàm Minimax để lấy nước đi tốt nhất cho AI (AI được đánh dấu là 2).
     const x = bestMove.x;
     const y = bestMove.y;
 
     if (isValidMove(x, y)) {
-        board[x][y] = 2;
+        board[x][y] = PLAYER_TWO;
 
-        if (isWinningMove(x, y, 2)) {
+        if (isWinningMove(x, y, PLAYER_TWO)) {
             console.log("AI thắng!");
             // Xử lý kết thúc trò chơi
         }
     }
 }
+
+// Tìm nước đi tốt nhất cho AI
 function getBestMove(player, depth) {
     let bestMove = null;
     let bestScore = -Infinity;
 
-    for (let i = 0; i < 15; i++) {
-        for (let j = 0; j < 15; j++) {
+    for (let i = 0; i < BOARD_SIZE; i++) {
+        for (let j = 0; j < BOARD_SIZE; j++) {
             if (isValidMove(i, j)) {
                 board[i][j] = player;
-                const score = alphaBetaPruning(board, depth - 1, -Infinity, Infinity, false, 2, 1);
-                board[i][j] = 0; // Đặt lại giá trị bàn cờ
+                const score = alphaBetaPruning(board, depth - 1, -Infinity, Infinity, false, PLAYER_TWO, PLAYER_ONE);
+                board[i][j] = EMPTY_CELL; // Đặt lại giá trị bàn cờ
 
                 if (score > bestScore) {
                     bestScore = score;
@@ -120,6 +126,7 @@ function getBestMove(player, depth) {
     return bestMove;
 }
 
+// Hàm đánh giá tình huống trên bàn cờ
 function alphaBetaPruning(board, depth, alpha, beta, maximizingPlayer, player, opponent) {
     if (depth === 0 || isGameEnd()) {
         return evaluateBoard(); // Đánh giá tình huống trên bàn cờ (cần triển khai hàm này).
@@ -127,12 +134,12 @@ function alphaBetaPruning(board, depth, alpha, beta, maximizingPlayer, player, o
 
     if (maximizingPlayer) {
         let maxScore = -Infinity;
-        for (let i = 0; i < 15; i++) {
-            for (let j = 0; j < 15; j++) {
-                if (isValidMove(i, j)) {
+        for (let [i, row] of board.entries()) {
+            for (let [j, cell] of row.entries()) {
+                if (cell === EMPTY_CELL) {
                     board[i][j] = player;
                     maxScore = Math.max(maxScore, alphaBetaPruning(board, depth - 1, alpha, beta, false, opponent, player));
-                    board[i][j] = 0; // Đặt lại giá trị bàn cờ
+                    board[i][j] = EMPTY_CELL; // Đặt lại giá trị bàn cờ
 
                     alpha = Math.max(alpha, maxScore);
                     if (beta <= alpha) {
@@ -144,12 +151,12 @@ function alphaBetaPruning(board, depth, alpha, beta, maximizingPlayer, player, o
         return maxScore;
     } else {
         let minScore = Infinity;
-        for (let i = 0; i < 15; i++) {
-            for (let j = 0; j < 15; j++) {
-                if (isValidMove(i, j)) {
+        for (let [i, row] of board.entries()) {
+            for (let [j, cell] of row.entries()) {
+                if (cell === EMPTY_CELL) {
                     board[i][j] = player;
                     minScore = Math.min(minScore, alphaBetaPruning(board, depth - 1, alpha, beta, true, opponent, player));
-                    board[i][j] = 0; // Đặt lại giá trị bàn cờ
+                    board[i][j] = EMPTY_CELL; // Đặt lại giá trị bàn cờ
 
                     beta = Math.min(beta, minScore);
                     if (beta <= alpha) {
@@ -162,10 +169,11 @@ function alphaBetaPruning(board, depth, alpha, beta, maximizingPlayer, player, o
     }
 }
 
+// Kiểm tra xem trò chơi đã kết thúc chưa
 function isGameEnd() {
-    for (let i = 0; i < 15; i++) {
-        for (let j = 0; j < 15; j++) {
-            if (board[i][j] !== 0) {
+    for (let i = 0; i < BOARD_SIZE; i++) {
+        for (let j = 0; j < BOARD_SIZE; j++) {
+            if (board[i][j] !== EMPTY_CELL) {
                 const currentPlayer = board[i][j];
 
                 if (isWinningMove(i, j, currentPlayer)) {
@@ -176,9 +184,9 @@ function isGameEnd() {
     }
 
     // Kiểm tra xem bàn cờ đã đầy chưa
-    for (let i = 0; i < 15; i++) {
-        for (let j = 0; j < 15; j++) {
-            if (board[i][j] === 0) {
+    for (let i = 0; i < BOARD_SIZE; i++) {
+        for (let j = 0; j < BOARD_SIZE; j++) {
+            if (board[i][j] === EMPTY_CELL) {
                 return false;
             }
         }
@@ -187,42 +195,44 @@ function isGameEnd() {
     return true; // Nếu không còn ô trống, trò chơi kết thúc hòa.
 }
 
+// Đánh giá tình huống trên bàn cờ
 function evaluateBoard() {
     let score = 0;
 
     // Tiêu chí số lượng quân cờ liên tiếp
-    score += evaluateConsecutivePieces(2) - evaluateConsecutivePieces(1);
+    score += evaluateConsecutivePieces(PLAYER_TWO) - evaluateConsecutivePieces(PLAYER_ONE);
 
     // Tiêu chí phòng ngừa thua
-    score += evaluatePreventLoss(2) - evaluatePreventLoss(1);
+    score += evaluatePreventLoss(PLAYER_TWO) - evaluatePreventLoss(PLAYER_ONE);
 
     // Tiêu chí cấu trúc hình thành
-    score += evaluateFormation(2) - evaluateFormation(1);
+    score += evaluateFormation(PLAYER_TWO) - evaluateFormation(PLAYER_ONE);
 
     // Tiêu chí kiểm soát trung tâm
-    score += evaluateControlCenter(2) - evaluateControlCenter(1);
+    score += evaluateControlCenter(PLAYER_TWO) - evaluateControlCenter(PLAYER_ONE);
 
     // Tiêu chí phòng ngừa chiến thắng đối phương
-    score += evaluatePreventOpponentWin(2) - evaluatePreventOpponentWin(1);
+    score += evaluatePreventOpponentWin(PLAYER_TWO) - evaluatePreventOpponentWin(PLAYER_ONE);
 
     // Tiêu chí ưu tiên tấn công và phòng ngự
-    score += evaluateAggressiveDefense(2) - evaluateAggressiveDefense(1);
+    score += evaluateAggressiveDefense(PLAYER_TWO) - evaluateAggressiveDefense(PLAYER_ONE);
 
     return score;
 }
 
+// Đánh giá tiêu chí số lượng quân cờ liên tiếp
 function evaluateConsecutivePieces(player) {
     let score = 0;
     const opponent = 3 - player; // Lấy người chơi đối thủ
 
     // Duyệt qua bàn cờ và đánh giá số lượng quân cờ liên tiếp
-    for (let i = 0; i < 15; i++) {
-        for (let j = 0; j < 15; j++) {
+    for (let i = 0; i < BOARD_SIZE; i++) {
+        for (let j = 0; j < BOARD_SIZE; j++) {
             if (board[i][j] === player) {
                 // Đánh giá số lượng quân cờ liên tiếp theo chiều ngang
                 let consecutiveHorizontal = 1;
                 for (let k = 1; k < 5; k++) {
-                    if (j + k < 15 && board[i][j + k] === player) {
+                    if (j + k < BOARD_SIZE && board[i][j + k] === player) {
                         consecutiveHorizontal++;
                     } else {
                         break;
@@ -232,7 +242,7 @@ function evaluateConsecutivePieces(player) {
                 // Đánh giá số lượng quân cờ liên tiếp theo chiều dọc
                 let consecutiveVertical = 1;
                 for (let k = 1; k < 5; k++) {
-                    if (i + k < 15 && board[i + k][j] === player) {
+                    if (i + k < BOARD_SIZE && board[i + k][j] === player) {
                         consecutiveVertical++;
                     } else {
                         break;
@@ -261,11 +271,11 @@ function evaluateConsecutivePieces(player) {
                 }
 
                 // Cân nhắc trường hợp chặn đối thủ
-                if (consecutiveHorizontal === 4 && j > 0 && j + 4 < 15 && board[i][j - 1] === 0 && board[i][j + 4] === 0) {
+                if (consecutiveHorizontal === 4 && j > 0 && j + 4 < BOARD_SIZE && board[i][j - 1] === EMPTY_CELL && board[i][j + 4] === EMPTY_CELL) {
                     score += 50; // Có thể tạo cơ hội chiến thắng
                 }
 
-                if (consecutiveVertical === 4 && i > 0 && i + 4 < 15 && board[i - 1][j] === 0 && board[i + 4][j] === 0) {
+                if (consecutiveVertical === 4 && i > 0 && i + 4 < BOARD_SIZE && board[i - 1][j] === EMPTY_CELL && board[i + 4][j] === EMPTY_CELL) {
                     score += 50; // Có thể tạo cơ hội chiến thắng
                 }
             }
@@ -275,6 +285,7 @@ function evaluateConsecutivePieces(player) {
     return score;
 }
 
+// Đánh giá tiêu chí phòng ngừa thua
 function evaluatePreventLoss(player) {
     let score = 0;
     const opponent = 3 - player; // Lấy người chơi đối thủ
@@ -284,6 +295,7 @@ function evaluatePreventLoss(player) {
     return score;
 }
 
+// Đánh giá tiêu chí cấu trúc hình thành
 function evaluateFormation(player) {
     let score = 0;
     const opponent = 3 - player; // Lấy người chơi đối thủ
@@ -293,6 +305,7 @@ function evaluateFormation(player) {
     return score;
 }
 
+// Đánh giá tiêu chí kiểm soát trung tâm
 function evaluateControlCenter(player) {
     let score = 0;
     const opponent = 3 - player; // Lấy người chơi đối thủ
@@ -302,6 +315,7 @@ function evaluateControlCenter(player) {
     return score;
 }
 
+// Đánh giá tiêu chí phòng ngừa chiến thắng đối phương
 function evaluatePreventOpponentWin(player) {
     let score = 0;
     const opponent = 3 - player; // Lấy người chơi đối thủ
@@ -311,6 +325,7 @@ function evaluatePreventOpponentWin(player) {
     return score;
 }
 
+// Đánh giá tiêu chí ưu tiên tấn công và phòng ngự
 function evaluateAggressiveDefense(player) {
     let score = 0;
     const opponent = 3 - player; // Lấy người chơi đối thủ
