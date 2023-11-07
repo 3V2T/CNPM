@@ -84,20 +84,20 @@ const User = {
     }),
   register: (user) =>
     new Promise(async (resolve, reject) => {
-      const { username, password } = user
+      const { email, username, password } = user
       const hashPass = await hashPassword(password) // hash truoc khi luu vao db
 
       const currentTimeInSeconds = Math.floor(new Date().getTime() / 1000)
       const ID = currentTimeInSeconds.toString()
 
-      const q1 = `CALL dangky(?, ?, ?)`
-      const result = await query(q1, [ID, username, hashPass])
+      const q1 = `CALL dangky(?, ?, ?, ?)`
+      const result = await query(q1, [ID, email, username, hashPass])
+      
       if (!result.affectedRows)
         reject(new BadRequestError('Dang ky khong thanh cong!'))
-      console.log('Du lieu duoc them vao bang, ID moi la: ' + result.insertId)
 
       const q2 = `SELECT * FROM user WHERE ID = ?` 
-      const id = result.insertId
+      const id = ID
       const newUser = await query(q2, [id]) 
       if (!newUser)
         reject(new NotFoundError(`Khong the tim thay nguoi choi co id: ${id}`))

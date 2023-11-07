@@ -131,9 +131,13 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('1699261643','Au Duong Phong','auduongphong123','$2a$10$PM34K.CIJc8wad6qfZFkBOdiQLNghvhtbOBzQ/SsoEsGZdRklBZzC','auduongphong@gmail.com',0,NULL),('1699264357',NULL,'Hong That Cong','$2a$10$Cvh.fMez8wfxI4zIDcwtBubbaoH75hzHktkQoXBhU1xYdmcIBRUcS',NULL,0,NULL),('1699267684','Vuong Trung Duong','vuongtrungduong123','$2a$10$ot2ugbi47/VOnfjiaDkoa.xxJer3.3EPgRJyvAtzt6FBmiCUUVUQy','vuongtrungduong@gmail.com',1,NULL);
+INSERT INTO `user` VALUES ('1699261643','Au Duong Phong','auduongphong123','$2a$10$PM34K.CIJc8wad6qfZFkBOdiQLNghvhtbOBzQ/SsoEsGZdRklBZzC','auduongphong@gmail.com',0,NULL),('1699264357',NULL,'Hong That Cong','$2a$10$Cvh.fMez8wfxI4zIDcwtBubbaoH75hzHktkQoXBhU1xYdmcIBRUcS',NULL,0,NULL),('1699267684','Vuong Trung Duong','vuongtrungduong123','$2a$10$ot2ugbi47/VOnfjiaDkoa.xxJer3.3EPgRJyvAtzt6FBmiCUUVUQy','vuongtrungduong@gmail.com',1,NULL),('1699343377',NULL,'doantrihung123','$2a$10$Y5lu3jvT1BjLp.xJP.1vj.nHeYi6WzAnlUbqtTMacLPgIMHy4TzES','doantrihung@gmail.com',0,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'caro'
+--
 
 --
 -- Dumping routines for database 'caro'
@@ -150,10 +154,11 @@ UNLOCK TABLES;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `dangky`(
 	IN `id` VARCHAR(50),
+    IN `email` VARCHAR(50),
     IN `username` VARCHAR(20),
     IN `password` VARCHAR(256)
 )
-INSERT INTO `user`(`ID` ,`USERNAME`, `PASSWORD`) VALUES (id, username, password) ;;
+INSERT INTO `user`(`ID` ,`EMAIL`, `USERNAME`, `PASSWORD`) VALUES (id, email, username, password) ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -643,4 +648,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-06 17:57:22
+-- Dump completed on 2023-11-07 14:53:58
